@@ -65,3 +65,29 @@ Tools are defined but the actual functions are not implemented. This crashes as 
 * User: Can I have my refund?
 
 The code crashes at this point with the error message "An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'."
+
+### 3_tools_implemented.py
+
+Tool are implemented and calling the tools is handled now. Example chat:
+
+* User: Hi! who are you?
+* Assistant: I'm a customer support agent for ACME Corp, here to assist you with any inquiries or issues you may have. How can I help you today?
+* User: My e-scooter has fallen apart
+* Assistant: I'm sorry to hear that! Can you describe what specifically has fallen apart or what issues you're experiencing with your e-scooter?
+* User: the front wheel came apart from the body
+* Assistant: It sounds like there may be an issue with the wheel attachment. Have you checked if the bolts or screws securing the front wheel are loose or missing?
+* User: the bolts are broken
+* Assistant: Thank you for the information. I recommend replacing the broken bolts with new ones to secure the front wheel properly. Would you like assistance in finding replacement parts, or are you experiencing additional issues with your e-scooter?
+* User: I want a refund
+* Assistant: I can help with that. Could you please provide me with your order ID so I can process the refund for your e-scooter?
+* User: my order id was 3488908
+* Assistant: execute_refund({'item_id': '3488908', 'reason': 'e-scooter broken bolts, not functional'})
+
+        ===Refund summary===
+        Item ID: 3488908
+        Reason: e-scooter broken bolts, not functional
+        ====================
+        Refund executed successfully.
+
+* User: what happens now?
+* Assistant: Your refund has been successfully processed, and you should see the amount credited back to your original payment method shortly. If you have any further questions, feel free to ask!

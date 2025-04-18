@@ -44,7 +44,7 @@ def function_to_schema(func) -> dict:
             raise ValueError(f"Unsupported parameter type: {param.annotation}")
         parameters[param.name] = {"type": param_type}
 
-    required = [param.name for param in parameters.values() if param.default == inspect._empty]
+    required = [param.name for param in signature.parameters.values() if param.default == inspect._empty]
 
     return {
         "type": "function",
