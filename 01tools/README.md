@@ -89,5 +89,4 @@ Tool are implemented and calling the tools is handled now. Example chat:
         ====================
         Refund executed successfully.
 
-* User: what happens now?
-* Assistant: Your refund has been successfully processed, and you should see the amount credited back to your original payment method shortly. If you have any further questions, feel free to ask!
+* Assistant: Your refund has been successfully processed! If you need any further assistance, feel free to ask.questions, feel free to ask!

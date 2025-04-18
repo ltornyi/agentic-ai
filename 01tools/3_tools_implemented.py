@@ -60,18 +60,23 @@ def build_tools():
 
 
 def run_full_turn(client, deployment, system_message, tools, messages, tools_map):
-    response = client.chat.completions.create(
-        model=deployment,
-        messages=[{"role": "system", "content": system_message}] + messages,
-        tools=tools,
-    )
-    message = response.choices[0].message
-    messages.append(message)
 
-    if message.content:
-        print(colored_text("Assistant:", "yellow"), message.content)
+    # looping so that the LLM can respond to the tools calls
+    while True:
+        response = client.chat.completions.create(
+            model=deployment,
+            messages=[{"role": "system", "content": system_message}] + messages,
+            tools=tools,
+        )
+        message = response.choices[0].message
+        messages.append(message)
 
-    if message.tool_calls:
+        if message.content:
+            print(colored_text("Assistant:", "yellow"), message.content)
+
+        if not message.tool_calls:
+            break
+
         for tool_call in message.tool_calls:
             result = execute_tool_call(tool_call, tools_map)
             result_message = {
