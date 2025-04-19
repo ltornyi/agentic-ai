@@ -26,3 +26,11 @@ class Agent(BaseModel):
         self.tools_map = {tool.__name__: tool for tool in tools}
         self.tool_schemas = [function_to_schema(tool) for tool in tools]
 
+    def add_tool(self, tool):
+        """
+        Adds a tool to the agent.
+        :param tool: The tool to add.
+        """
+        self.tools.append(tool)
+        self.tools_map[tool.__name__] = tool
+        self.tool_schemas.append(function_to_schema(tool))

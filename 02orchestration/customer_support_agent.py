@@ -44,18 +44,20 @@ class CustomerSupportAgent(Agent):
     triage_agent: Agent = None
 
     def transfer_to_triage(self):
-        """ Use to transfer the user to triage agent.
-        Use for anything the customer support agent cannot deal with.
+        """ Use this if the user brings up a topic other than repairs or refunds.
+        Use for anything you cannot deal with.
         """
         return self.triage_agent
 
-    def __init__(self, deployment: str, triage_agent: Agent = None):
+    def __init__(self, deployment: str):
         super().__init__(
             name="Customer Support Agent",
             deployment=deployment,
             instructions=create_system_message(),
             tools=[look_up_item, execute_refund],
         )
-        if not triage_agent is None:
-            self.triage_agent = triage_agent
-            self.tools.append(self.transfer_to_triage)
+
+    def set_triage_agent(self, triage_agent: Agent):
+        """ Set the triage agent for this customer support agent. """
+        self.triage_agent = triage_agent
+        self.add_tool(self.transfer_to_triage)

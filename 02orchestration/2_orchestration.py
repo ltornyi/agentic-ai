@@ -78,7 +78,7 @@ def main():
         service_agent=customer_service_agent,
         sales_agent=None,
     )
-    print(colored_text("Starting triage agent...", "green"), triage_agent.tool_schemas)
+    customer_service_agent.set_triage_agent(triage_agent)
     chat_loop(client, triage_agent)
     
 
