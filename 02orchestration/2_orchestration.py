@@ -2,6 +2,7 @@ import os, json
 from dotenv import load_dotenv
 from openai import AzureOpenAI
 
+from sales_agent import SalesAgent
 from triage_agent import TriageAgent
 from customer_support_agent import CustomerSupportAgent
 from utils import colored_text
@@ -73,12 +74,14 @@ def main():
     )
     deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT")
     customer_service_agent = CustomerSupportAgent(deployment=deployment)
+    sales_agent = SalesAgent(deployment=deployment)
     triage_agent = TriageAgent(
         deployment=deployment,
         service_agent=customer_service_agent,
-        sales_agent=None,
+        sales_agent=sales_agent,
     )
     customer_service_agent.set_triage_agent(triage_agent)
+    sales_agent.set_triage_agent(triage_agent)
     chat_loop(client, triage_agent)
     
 
